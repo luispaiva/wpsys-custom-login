@@ -1,0 +1,73 @@
+# Copyright (C) 2019 Luis Paiva
+# This file is distributed under the same license as the WPSYS Custom Login plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WPSYS Custom Login 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpsys-custom-login\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-10-24T16:21:04+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.2.0\n"
+"X-Domain: wpsys\n"
+
+#. Plugin Name of the plugin
+msgid "WPSYS Custom Login"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "http://luispaiva.com.br"
+msgstr ""
+
+#. Description of the plugin
+msgid "Plugin desenvolvido para customizar a tela de autenticação do WordPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "Luis Paiva"
+msgstr ""
+
+#: includes/class.init.php:41
+msgid "Usuário ou e-mail"
+msgstr ""
+
+#: includes/class.init.php:42
+msgid "Senha"
+msgstr ""
+
+#: includes/class.init.php:43
+msgid "Nome de usuário"
+msgstr ""
+
+#: includes/class.init.php:44
+msgid "E-mail"
+msgstr ""
+
+#: includes/class.init.php:45
+msgid "Nome de usuário ou e-mail"
+msgstr ""
+
+#: includes/class.init.php:74
+msgid "Criar uma conta."
+msgstr ""
+
+#: includes/class.init.php:93
+msgid "<strong>ERRO</strong>: O campo usuário é obrigatório!"
+msgstr ""
+
+#: includes/class.init.php:97
+msgid "<strong>ERRO</strong>: O campo senha é obrigatório!"
+msgstr ""
+
+#: includes/class.init.php:101
+#: includes/class.init.php:105
+msgid "<strong>ERRO</strong>: Usuário ou senha inválido!"
+msgstr ""
+
+#: includes/class.init.php:109
+msgid "O link para redefinir a sua senha parece ser inválido. Solicite um novo link abaixo."
+msgstr ""

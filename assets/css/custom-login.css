@@ -1,0 +1,217 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url('../img/bg-login.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: sans-serif;
+ }
+
+ #login {
+    width: 320px;
+    height: auto;
+    background: #233645f2;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 50px 30px;
+ }
+
+ .login h1 a {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+    background-image: url('../img/avatar.jpeg');
+    background-size: 100px;
+    text-indent: -9999px;
+    background-color: #1ab394;
+ }
+
+ #login p {
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+    font-size: 13px;
+ }
+
+ #login input {
+    width: 100%;
+    margin-bottom: 20px;
+    outline: none;
+    box-shadow: none;
+ }
+
+ #login input[type=checkbox], input[type=radio] {
+    width: 7%;
+    cursor: pointer;
+    height: 16px;
+    vertical-align: sub;
+ }
+
+ #login input[type="text"],
+ input[type="password"],
+ input[type="email"] {
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 35px;
+    color: #fff;
+    font-size: 16px;
+ }
+
+ #login input[type="submit"] {
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    background: linear-gradient(120deg, #4fc2e1 0%, #1ab394 100%);
+    border-color: #1ab394;
+    font-size: 18px;
+    border-radius: 20px;
+    box-shadow: 0 1px 0 #18a689;
+ }
+
+ #login input[type="submit"]:hover {
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(120deg, #1ab394 0%, #4fc2e1 100%);
+    border-color: #18a689;
+ }
+
+ #login a {
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+ }
+
+ #login a:hover {
+    color: #18a689;
+ }
+
+ .login .message, .login .success {
+    font-size: 12px;
+    border-left: 4px solid #18a689;
+    padding: 12px !important;
+    margin-left: 0;
+    margin-bottom: 20px !important;
+    background-color: #00000085;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+ }
+
+ #login_error {
+    font-size: 12px;
+    border-left: 4px solid #fb2525;
+    padding: 12px !important;
+    margin-left: 0;
+    margin-bottom: 20px !important;
+    background-color: #00000085;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+ }
+
+ input#rememberme {
+    margin-top: 0;
+ }
+
+ p.forgetmenot > label {
+    display: flex;
+ }
+
+ #backtoblog {
+    display: none;
+ }
+
+ ::placeholder {
+    color: #F1F1F1C2;
+    font-size: 15px;
+    opacity: 1;
+ }
+
+ /* ================== Style recuperação de senha ======================== */
+
+ #pass1-text, .show-password #pass1 {
+    display: none;
+ }
+
+ #pass1-text.strong, #pass1.strong {
+    border-color: #ffffff;
+ }
+
+ .show-password #pass1-text {
+    display: inline-block;
+ }
+
+ .login #pass-strength-result {
+    font-weight: 600;
+    margin: -1px 5px 16px 0;
+    padding: 6px 5px;
+    text-align: center;
+    width: 100%;
+ }
+
+ #pass-strength-result.short {
+    background-color: #ed5565;
+    border-color: #ed5565;
+    opacity: 1;
+    color: #fff;
+    font-weight: 300;
+    max-width: calc( 100% - 10px);
+ }
+
+ #pass-strength-result.bad {
+    background-color: #f8ac59;
+    border-color: #f8ac59;
+    opacity: 1;
+    color: #fff;
+    font-weight: 300;
+    max-width: calc( 100% - 10px);
+ }
+
+ #pass-strength-result.good {
+    background-color: #1c84c6;
+    border-color: #1c84c6;
+    opacity: 1;
+    color: #fff;
+    font-weight: 300;
+    max-width: calc( 100% - 10px);
+ }
+
+ #pass-strength-result.strong {
+    background-color: #1ab394;
+    border-color: #1ab394;
+    opacity: 1;
+    color: #fff;
+    font-weight: 300;
+    max-width: calc( 100% - 10px);
+ }
+
+ .pw-weak > label {
+    font-size: 13px;
+    display: flex;
+ }
+
+ input.pw-checkbox {
+    margin-top: 0;
+ }
+
+ .login .button.button-secondary {
+    color: #f1f1f1;
+    background: 0 0;
+    border: 1px solid transparent;
+    box-shadow: none;
+    font-size: 14px;
+    line-height: 2;
+    height: auto;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 43% 30px 0 0;
+ }
