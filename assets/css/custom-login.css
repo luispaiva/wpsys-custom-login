@@ -215,3 +215,9 @@ body {
     top: 0;
     padding: 43% 30px 0 0;
  }
+
+/* Captha */
+img.img-captha {
+   float: right;
+   margin: 10px 0 -24px 0;
+}
