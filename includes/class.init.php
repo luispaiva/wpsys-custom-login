@@ -20,9 +20,15 @@ class WPSYS_Init {
       add_action( 'login_enqueue_scripts', array( $this, 'login_enqueue_scripts'), 10 );
       add_filter( 'login_headerurl', array( $this, 'login_headerurl' ), 10 );
       add_filter( 'gettext', array( $this, 'gettext' ), 10, 3 );
-      add_filter( 'login_errors', array( $this, 'login_errors' ), 10, 1 );
+
       add_filter( 'wp_mail_from', array( $this, 'wp_mail_from' ), 10, 1 );
       add_filter( 'wp_mail_from_name', array( $this, 'wp_mail_from_name' ), 10, 1 );
+      
+      add_filter( 'login_form', array( $this, 'login_form' ), 10 );
+      add_filter( 'wp_authenticate_user', array( $this, 'wp_authenticate_user' ), 10, 2 );
+
+      add_filter( 'register_form', array( $this, 'register_form' ), 10 );
+      add_filter( 'registration_errors', array( $this, 'registration_errors' ), 10, 3 );
    }
 
    /**
@@ -79,45 +85,6 @@ class WPSYS_Init {
    }
 
    /**
-   * Função que altera a saída de erros da página de login.
-   */
-   function login_errors( $error ) {
-      global $errors;
-      $err_codes = $errors->get_error_codes();
-
-      // var_dump( $err_codes ); die;
-
-      switch ($err_codes) {
-
-         case in_array( 'empty_username', $err_codes ):
-            $error = __( '<strong>ERRO</strong>: O campo usuário é obrigatório!', 'wpsys' );
-            break;
-
-         case in_array( 'empty_password', $err_codes ):
-            $error = __( '<strong>ERRO</strong>: O campo senha é obrigatório!', 'wpsys' );
-            break;
-
-         case in_array( 'invalid_username', $err_codes ):
-            $error = __( '<strong>ERRO</strong>: Usuário ou senha inválido!', 'wpsys' );
-            break;
-
-         case in_array( 'incorrect_password', $err_codes ):
-            $error = __( '<strong>ERRO</strong>: Usuário ou senha inválido!', 'wpsys' );
-            break;
-
-         case in_array( 'invalidkey', $err_codes ):
-            $error = __( 'O link para redefinir a sua senha parece ser inválido. Solicite um novo link abaixo.', 'wpsys' );
-            break;
-
-         default:
-            $error = $err_codes;
-            break;
-      }
-
-      return $error;
-   }
-
-   /**
    * Altera o e-mail de saída ao enviar um e-mail.
    *
    * @param string $default
@@ -138,6 +105,105 @@ class WPSYS_Init {
       return get_bloginfo('name');
    }
 
+   /**
+   * Função inseri um novo campo no formulário de login.
+   */
+   function login_form() {
+
+      if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+
+         $captcha       = new ReallySimpleCaptcha();
+         $captcha->bg   = array( 45, 185, 175 );
+         $captcha->fg   = array( 255, 255, 255 );
+         $word          = $captcha->generate_random_word();
+         $prefix        = mt_rand();
+         $img           = $captcha->generate_image( $prefix, $word );
+         $path          = plugins_url() . '/really-simple-captcha/tmp/' . $img;
+
+      ?>
+         <input type="hidden" name="captcha_prefix" value="<?php echo $prefix; ?>">
+         <img class="img-captha" src="<?php echo $path; ?>">
+         <p>
+            <input type="text" class="captcha" name="captcha" id="captcha">
+         </p>
+      <?php
+      }
+   }
+
+   /**
+    * Função que valida e o código digitado é válido.
+    *
+    * @param string $user
+    * @param string $password
+    * @return array
+    */
+   function wp_authenticate_user( $user, $password ) {
+
+      if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+
+         $captha  = new ReallySimpleCaptcha();
+         $prefix  = sanitize_text_field( $_POST['captcha_prefix'] );
+         $input   = sanitize_text_field( $_POST['captcha'] );
+
+         if ( ! $captha->check( $prefix, $input ) ) {
+            $user = new WP_Error( 'captcha_error', __( '<strong>ERRO</strong>: Código inválido!', 'wpsys' ) );
+         }
+
+         $captha->remove( $prefix );
+      }
+
+      return $user;
+   }
+
+   /**
+   * Função inseri um novo campo no formulário de registro.
+   */
+   function register_form() {
+
+      if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+
+         $captcha       = new ReallySimpleCaptcha();
+         $captcha->bg   = array( 45, 185, 175 );
+         $captcha->fg   = array( 255, 255, 255 );
+         $word          = $captcha->generate_random_word();
+         $prefix        = mt_rand();
+         $img           = $captcha->generate_image( $prefix, $word );
+         $path          = plugins_url() . '/really-simple-captcha/tmp/' . $img;
+      ?>
+         <input type="hidden" name="captcha_prefix" value="<?php echo $prefix; ?>">
+         <img class="img-captha" src="<?php echo $path; ?>">
+         <p>
+            <input type="text" class="captcha" name="captcha" id="captcha">
+         </p>
+      <?php
+      }
+   }
+
+   /**
+   * Função que valida a imagem gerada com o código digitado.
+   *
+   * @param string $user_login
+   * @param string $user_email
+   * @param string $errors
+   * @return array
+   */
+   function registration_errors( $errors, $user_login, $user_email ) {
+
+      if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+
+         $captha  = new ReallySimpleCaptcha();
+         $prefix  = sanitize_text_field( $_POST['captcha_prefix'] );
+         $input   = sanitize_text_field( $_POST['captcha'] );
+
+         if ( ! $captha->check( $prefix, $input ) ) {
+            $errors = new WP_Error( 'captcha_error', __( '<strong>ERRO</strong>: Código inválido!', 'wpsys' ) );
+         }
+
+         $captha->remove( $prefix );
+      }
+
+      return $errors;
+   }
 
 }
 WPSYS_Init::get_instance();
