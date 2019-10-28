@@ -18,3 +18,4 @@ define( 'WPSYS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPSYS_URL', plugin_dir_url( __FILE__ ) );
 
 require_once WPSYS_PATH . 'includes/class.init.php';
+require_once WPSYS_PATH . 'includes/plugins-required.php';
