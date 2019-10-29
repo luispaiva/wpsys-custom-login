@@ -110,7 +110,7 @@ class WPSYS_Init {
    */
    function login_form() {
 
-      if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+      if ( class_exists( 'ReallySimpleCaptcha' ) && $_SERVER['HTTP_ORIGIN'] != '' ) {
 
          $captcha       = new ReallySimpleCaptcha();
          $captcha->bg   = array( 45, 185, 175 );
@@ -139,7 +139,7 @@ class WPSYS_Init {
     */
    function wp_authenticate_user( $user, $password ) {
 
-      if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+      if ( class_exists( 'ReallySimpleCaptcha' && $_SERVER['HTTP_ORIGIN'] != '' ) ) {
 
          $captha  = new ReallySimpleCaptcha();
          $prefix  = sanitize_text_field( $_POST['captcha_prefix'] );
