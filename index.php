@@ -1,6 +1,6 @@
 <?php
 /**
-* Plugin Name:     WPSYS Custom Login
+* Plugin Name:     WPSys Custom Login
 * Plugin URI:      http://luispaiva.com.br
 * Description:     Plugin desenvolvido para customizar a tela de autenticação do WordPress.
 * Author:          Luis Paiva
@@ -17,5 +17,5 @@ defined( 'ABSPATH' ) || die;
 define( 'WPSYS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPSYS_URL', plugin_dir_url( __FILE__ ) );
 
+require_once WPSYS_PATH . 'vendor/autoload.php';
 require_once WPSYS_PATH . 'includes/class.init.php';
-require_once WPSYS_PATH . 'includes/plugins-required.php';

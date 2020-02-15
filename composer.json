@@ -1,0 +1,16 @@
+{
+   "name": "luis/wpsys-custom-login",
+   "description": "Plugin para customizar as telas de autenticação do WordPress.",
+   "type": "project",
+   "license": "GPL-2.0-or-later",
+   "authors": [
+      {
+         "name": "Luis Fernando de Paiva",
+         "email": "contato@luispaiva.com.br"
+      }
+   ],
+   "minimum-stability": "stable",
+   "require": {
+      "tgmpa/tgm-plugin-activation": "^2.6"
+   }
+}

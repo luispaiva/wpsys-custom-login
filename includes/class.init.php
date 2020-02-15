@@ -17,18 +17,58 @@ class WPSYS_Init {
    }
 
    private function __construct() {
+      add_action( 'tgmpa_register', array( $this, 'tgmpa_register' ), 10 );
+
       add_action( 'login_enqueue_scripts', array( $this, 'login_enqueue_scripts'), 10 );
       add_filter( 'login_headerurl', array( $this, 'login_headerurl' ), 10 );
       add_filter( 'gettext', array( $this, 'gettext' ), 10, 3 );
 
       add_filter( 'wp_mail_from', array( $this, 'wp_mail_from' ), 10, 1 );
       add_filter( 'wp_mail_from_name', array( $this, 'wp_mail_from_name' ), 10, 1 );
-      
+
       add_filter( 'login_form', array( $this, 'login_form' ), 10 );
       add_filter( 'wp_authenticate_user', array( $this, 'wp_authenticate_user' ), 10, 2 );
 
       add_filter( 'register_form', array( $this, 'register_form' ), 10 );
       add_filter( 'registration_errors', array( $this, 'registration_errors' ), 10, 3 );
+   }
+
+   /**
+   * Registra os plugins necessários.
+   */
+   function tgmpa_register() {
+      /*
+      * Plugins necessários.
+      */
+      $plugins = array(
+         array(
+            'name'               => 'Really Simple CAPTCHA',
+            'slug'               => 'really-simple-captcha',
+            'required'           => true,
+            'version'            => '',
+            'force_activation'   => false,
+            'force_deactivation' => false,
+         )
+      );
+
+      /*
+      * Configurações.
+      */
+      $config = array(
+         'id'           => 'tgmpa',
+         'default_path' => '',
+         'menu'         => 'tgmpa-install-plugins',
+         'parent_slug'  => 'plugins.php',
+         'capability'   => 'edit_theme_options',
+         'has_notices'  => true,
+         'dismissable'  => false,
+         'dismiss_msg'  => '',
+         'is_automatic' => false,
+         'message'      => '',
+      );
+
+      tgmpa( $plugins, $config );
+
    }
 
    /**
@@ -120,23 +160,23 @@ class WPSYS_Init {
          $img           = $captcha->generate_image( $prefix, $word );
          $path          = plugins_url() . '/really-simple-captcha/tmp/' . $img;
 
-      ?>
+         ?>
          <input type="hidden" name="captcha_prefix" value="<?php echo $prefix; ?>">
          <img class="img-captha" src="<?php echo $path; ?>">
          <p>
             <input type="text" class="captcha" name="captcha" id="captcha">
          </p>
-      <?php
+         <?php
       }
    }
 
    /**
-    * Função que valida e o código digitado é válido.
-    *
-    * @param string $user
-    * @param string $password
-    * @return array
-    */
+   * Função que valida e o código digitado é válido.
+   *
+   * @param string $user
+   * @param string $password
+   * @return array
+   */
    function wp_authenticate_user( $user, $password ) {
 
       if ( class_exists( 'ReallySimpleCaptcha' && $_SERVER['HTTP_ORIGIN'] != '' ) ) {
@@ -169,13 +209,13 @@ class WPSYS_Init {
          $prefix        = mt_rand();
          $img           = $captcha->generate_image( $prefix, $word );
          $path          = plugins_url() . '/really-simple-captcha/tmp/' . $img;
-      ?>
+         ?>
          <input type="hidden" name="captcha_prefix" value="<?php echo $prefix; ?>">
          <img class="img-captha" src="<?php echo $path; ?>">
          <p>
             <input type="text" class="captcha" name="captcha" id="captcha">
          </p>
-      <?php
+         <?php
       }
    }
 
